@@ -8,18 +8,23 @@ public class Account {
     private double balance;
     private String accountHoldersName;
     private double interestRate;
-    private AccountStatus accountStatus;
-    private OverdraftPrevention overdraftPrevention;
+    private AccountStatus accountStatus = AccountStatus.OPEN;
+    private OverdraftPrevention overdraftPrevention = OverdraftPrevention.ENABLED;
 
-    public double getBalance() {
+    public void getBalance() {
         if (accountStatus.equals(AccountStatus.OFAC)) {
             System.out.println("We're sorry, we cannot process your transaction at this time.");
+        } else {
+            System.out.println("Your current balance is " + balance + ".");
         }
-        return balance;
     }
 
     public void setBalance(double balance) {
         this.balance = balance;
+    }
+
+    public AccountStatus getAccountStatus() {
+        return accountStatus;
     }
 
     public void setAccountStatus(AccountStatus accountStatus) {
@@ -37,5 +42,30 @@ public class Account {
     public Account(String name) {
         this.accountHoldersName = name;
     }
+
+    public void credit(int amount) {
+        if(accountStatus.equals(AccountStatus.OFAC) || accountStatus.equals(AccountStatus.FROZEN) || accountStatus.equals(AccountStatus.CLOSED)) {
+            System.out.println("We're sorry, we cannot process your transaction at this time.");
+        } else {
+            balance += amount;
+        }
+    }
+
+    public void debit(int amount) {
+        if(accountStatus.equals(AccountStatus.OFAC) || accountStatus.equals(AccountStatus.FROZEN) || accountStatus.equals(AccountStatus.CLOSED)) {
+            System.out.println("We're sorry, we cannot process your transaction at this time.");
+        } else {
+            balance -= amount;
+        }
+    }
+
+    public void debitOverdraftPreventinTest(int amount) {
+        if(overdraftPrevention.equals(OverdraftPrevention.ENABLED) && amount > balance) {
+            System.out.println("We're sorry, we cannot process your transaction at this time.");
+        } else {
+            debit(amount);
+        }
+    }
+
 
 }

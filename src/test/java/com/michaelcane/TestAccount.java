@@ -25,8 +25,8 @@ public class TestAccount {
     @Test
     public void testBalanceOFAC() {
         account.setAccountStatus(AccountStatus.OFAC);
-        String expectedValue = "We're sorry, we cannot process your transaction at this time.";
-        double actualValue = account.getBalance();
-        assertEquals("Output should be a String", expectedValue, actualValue);
+        AccountStatus expectedValue = AccountStatus.OFAC;
+        AccountStatus actualValue= account.getAccountStatus();
+        assertEquals("Output should be OFAC", expectedValue, actualValue);
     }
 }

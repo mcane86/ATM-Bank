@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="78dee16a-304f-4150-8b6a-6ff50cbfba31" name="Default" comment="" />
+    <list default="true" id="78dee16a-304f-4150-8b6a-6ff50cbfba31" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/michaelcane/Transaction.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/com/michaelcane/Account.class" afterPath="$PROJECT_DIR$/target/classes/com/michaelcane/Account.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/michaelcane/Account.java" afterPath="$PROJECT_DIR$/src/main/java/com/michaelcane/Account.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/com/michaelcane/TestAccount.java" afterPath="$PROJECT_DIR$/src/test/java/com/michaelcane/TestAccount.java" />
+    </list>
     <ignored path="ATM-Bank.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path="$PROJECT_DIR$/out/" />
@@ -24,33 +31,33 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="Account.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Account.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/michaelcane/Account.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="210">
-              <caret line="14" column="12" selection-start-line="14" selection-start-column="12" selection-end-line="14" selection-end-column="12" />
+            <state relative-caret-position="255">
+              <caret line="17" column="72" selection-start-line="17" selection-start-column="72" selection-end-line="17" selection-end-column="72" />
               <folding>
-                <element signature="e#586#587#0" expanded="true" />
-                <element signature="e#624#625#0" expanded="true" />
-                <element signature="e#689#690#0" expanded="true" />
-                <element signature="e#739#740#0" expanded="true" />
-                <element signature="e#807#808#0" expanded="true" />
-                <element signature="e#867#868#0" expanded="true" />
-                <element signature="e#1047#1048#0" expanded="true" />
-                <element signature="e#1093#1094#0" expanded="true" />
+                <element signature="e#704#705#0" expanded="true" />
+                <element signature="e#742#743#0" expanded="true" />
+                <element signature="e#789#790#0" expanded="true" />
+                <element signature="e#825#826#0" expanded="true" />
+                <element signature="e#890#891#0" expanded="true" />
+                <element signature="e#940#941#0" expanded="true" />
+                <element signature="e#1008#1009#0" expanded="true" />
+                <element signature="e#1068#1069#0" expanded="true" />
+                <element signature="e#1248#1249#0" expanded="true" />
+                <element signature="e#1294#1295#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TestAccount.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/test/java/com/michaelcane/TestAccount.java">
+      <file leaf-file-name="Transaction.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/michaelcane/Transaction.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="405">
-              <caret line="29" column="78" selection-start-line="29" selection-start-column="78" selection-end-line="29" selection-end-column="78" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+            <state relative-caret-position="135">
+              <caret line="9" column="0" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -60,10 +67,13 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="Enum" />
+        <option value="Class" />
       </list>
     </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GradleLocalSettings">
     <option name="externalProjectsViewState">
@@ -81,6 +91,7 @@
         <option value="$PROJECT_DIR$/src/main/java/com/michaelcane/OverdraftPrevention.java" />
         <option value="$PROJECT_DIR$/src/test/java/com/michaelcane/TestAccount.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/michaelcane/Account.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/michaelcane/Transaction.java" />
       </list>
     </option>
   </component>
@@ -107,14 +118,14 @@
     <option name="width" value="1920" />
     <option name="height" value="1080" />
   </component>
-  <component name="ProjectLevelVcsManager" settingsEditedManually="false">
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <OptionsSetting value="true" id="Add" />
     <OptionsSetting value="true" id="Remove" />
     <OptionsSetting value="true" id="Checkout" />
     <OptionsSetting value="true" id="Update" />
     <OptionsSetting value="true" id="Status" />
     <OptionsSetting value="true" id="Edit" />
-    <ConfirmationsSetting value="0" id="Add" />
+    <ConfirmationsSetting value="2" id="Add" />
     <ConfirmationsSetting value="0" id="Remove" />
   </component>
   <component name="ProjectView">
@@ -710,7 +721,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1463681016109</updated>
-      <workItem from="1463681017558" duration="2583000" />
+      <workItem from="1463681017558" duration="3958000" />
     </task>
     <servers />
   </component>
@@ -718,9 +729,15 @@
     <history-entry file="TestAccount_testBalance - 2016.05.19 at 14h 40m 04s.xml">
       <configuration name="TestAccount.testBalance" configurationId="JUnit" />
     </history-entry>
+    <history-entry file="TestAccount_testBalanceOFAC - 2016.05.19 at 14h 59m 12s.xml">
+      <configuration name="TestAccount.testBalanceOFAC" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="TestAccount_testBalanceOFAC - 2016.05.19 at 15h 01m 24s.xml">
+      <configuration name="TestAccount.testBalanceOFAC" configurationId="JUnit" />
+    </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="2583000" />
+    <option name="totallyTimeSpent" value="3958000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-346" y="-1080" width="1920" height="1080" extended-state="0" />
@@ -792,6 +809,24 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/michaelcane/OverdraftPrevention.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="4" column="32" selection-start-line="4" selection-start-column="32" selection-end-line="4" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/com/michaelcane/TestAccount.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="405">
+          <caret line="29" column="43" selection-start-line="29" selection-start-column="43" selection-end-line="29" selection-end-column="43" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/michaelcane/AccountTypes.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="60">
@@ -808,38 +843,30 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/michaelcane/OverdraftPrevention.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="4" column="32" selection-start-line="4" selection-start-column="32" selection-end-line="4" selection-end-column="32" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/com/michaelcane/TestAccount.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="405">
-          <caret line="29" column="78" selection-start-line="29" selection-start-column="78" selection-end-line="29" selection-end-column="78" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/michaelcane/Account.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="14" column="12" selection-start-line="14" selection-start-column="12" selection-end-line="14" selection-end-column="12" />
+        <state relative-caret-position="255">
+          <caret line="17" column="72" selection-start-line="17" selection-start-column="72" selection-end-line="17" selection-end-column="72" />
           <folding>
-            <element signature="e#586#587#0" expanded="true" />
-            <element signature="e#624#625#0" expanded="true" />
-            <element signature="e#689#690#0" expanded="true" />
-            <element signature="e#739#740#0" expanded="true" />
-            <element signature="e#807#808#0" expanded="true" />
-            <element signature="e#867#868#0" expanded="true" />
-            <element signature="e#1047#1048#0" expanded="true" />
-            <element signature="e#1093#1094#0" expanded="true" />
+            <element signature="e#704#705#0" expanded="true" />
+            <element signature="e#742#743#0" expanded="true" />
+            <element signature="e#789#790#0" expanded="true" />
+            <element signature="e#825#826#0" expanded="true" />
+            <element signature="e#890#891#0" expanded="true" />
+            <element signature="e#940#941#0" expanded="true" />
+            <element signature="e#1008#1009#0" expanded="true" />
+            <element signature="e#1068#1069#0" expanded="true" />
+            <element signature="e#1248#1249#0" expanded="true" />
+            <element signature="e#1294#1295#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/michaelcane/Transaction.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="9" column="0" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
