@@ -1,21 +1,32 @@
 package com.michaelcane;
 
 
+import java.util.ArrayList;
+
 public class Account {
 
     private AccountTypes accountType;
-    private Long accountNumber;
-    private double balance;
-    private String accountHoldersName;
-    private double interestRate;
+    private String accountNumber;
+    private double balance = 00.00;
     private AccountStatus accountStatus = AccountStatus.OPEN;
     private OverdraftPrevention overdraftPrevention = OverdraftPrevention.ENABLED;
+    private ArrayList<String> transactionHistory;
 
-    public void getBalance() {
+    public void accountGenerator() {
+        int number = (int)Math.random();
+        int newNumber = number * 1000;
+        this.accountNumber = "579-866-"+ newNumber;
+    }
+
+    public double getBalance() {
+        return balance;
+    }
+
+    public String printBalance() {
         if (accountStatus.equals(AccountStatus.OFAC)) {
-            System.out.println("We're sorry, we cannot process your transaction at this time.");
+            return "We're sorry, we cannot process your transaction at this time.";
         } else {
-            System.out.println("Your current balance is " + balance + ".");
+            return "Your current balance is $" + balance + ".";
         }
     }
 
@@ -31,19 +42,20 @@ public class Account {
         this.accountStatus = accountStatus;
     }
 
-    public void setAccountHoldersName(String accountHoldersName) {
-        this.accountHoldersName = accountHoldersName;
+    public OverdraftPrevention getOverdraftPrevention() {
+        return overdraftPrevention;
     }
 
     public void setOverdraftPrevention(OverdraftPrevention overdraftPrevention) {
         this.overdraftPrevention = overdraftPrevention;
     }
 
-    public Account(String name) {
-        this.accountHoldersName = name;
+    public Account() {
+        transactionHistory = new ArrayList<String>();
+        accountGenerator();
     }
 
-    public void credit(int amount) {
+    public void credit(double amount) {
         if(accountStatus.equals(AccountStatus.OFAC) || accountStatus.equals(AccountStatus.FROZEN) || accountStatus.equals(AccountStatus.CLOSED)) {
             System.out.println("We're sorry, we cannot process your transaction at this time.");
         } else {
@@ -51,7 +63,7 @@ public class Account {
         }
     }
 
-    public void debit(int amount) {
+    public void debit(double amount) {
         if(accountStatus.equals(AccountStatus.OFAC) || accountStatus.equals(AccountStatus.FROZEN) || accountStatus.equals(AccountStatus.CLOSED)) {
             System.out.println("We're sorry, we cannot process your transaction at this time.");
         } else {
@@ -59,7 +71,7 @@ public class Account {
         }
     }
 
-    public void debitOverdraftPreventinTest(int amount) {
+    public void debitOverdraftPreventionTest(double amount) {
         if(overdraftPrevention.equals(OverdraftPrevention.ENABLED) && amount > balance) {
             System.out.println("We're sorry, we cannot process your transaction at this time.");
         } else {
