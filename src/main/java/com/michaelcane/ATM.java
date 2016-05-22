@@ -1,5 +1,7 @@
 package com.michaelcane;
 
+import java.util.Calendar;
+
 import static com.michaelcane.UserInputHandler.*;
 
 public class ATM {
@@ -10,6 +12,16 @@ public class ATM {
     private Investment investment = new Investment();
     private User user;
     private boolean working = true;
+    private String password;
+    Calendar rightNow = Calendar.getInstance();
+
+    public void transaction(String accountType, double amount) {
+        userManager.transactionHistory.add(rightNow + " " + accountType + " for " + amount);
+    }
+
+    public void transaction(String accountType, String accountTo, double amount) {
+        userManager.transactionHistory.add(rightNow + " " + accountType + " to " + accountTo + "for" + amount);
+    }
 
     public void startupEngine() {
         while(working) {
@@ -20,11 +32,11 @@ public class ATM {
                 case 1:
                     String name = promptUserForString("What is your name?");
                     double startingBalance = promptUserForDouble("How much would you like to deposit as your starting balance for your Checking?");
-                    String password = promptUserForString("What would you like your password to be?");
+                    password = promptUserForString("What would you like your password to be?");
                     userManager.passwordChecker(password);
                     user = new User(name);
                     userManager.userPasswordList.put(password, user);
-                    checking.setBalance(startingBalance);
+                    userManager.userPasswordList.get(password).getChecking().credit(startingBalance);
                     businessEngine();
                     break;
                 case 2:
@@ -44,9 +56,9 @@ public class ATM {
         }
     }
 
-    public void businessEngine() {
+    private void businessEngine() {
         while(working) {
-            int choice = promptUserForInt("How can IBMC assist you today?\n" + "1.) Deposit 2.) Withdrawal 3.) Transfer Funds\n" + "4.) Close Your Account  5.) Change your Overdraft Protection status 6.) Change Account Status .7) Exit");
+            int choice = promptUserForInt("How can IBMC assist you today?\n" + "1.) Deposit 2.) Withdrawal 3.) Transfer Funds 4.) Check Balance\n" + "5.) Close Your Account  6.) Change your Overdraft Protection status 7.) Change Account Status\n 8.) Get Transaction History 9.) Exit");
             switch (choice) {
                 case 1:
                     deposit();
@@ -58,15 +70,20 @@ public class ATM {
                     transfer();
                     break;
                 case 4:
-                    closeAccount();
+                    balance();
                     break;
                 case 5:
-                    overdraft();
+                    closeAccount();
                     break;
                 case 6:
-                    accountStatus();
+                    overdraft();
                     break;
                 case 7:
+                    accountStatus();
+                    break;
+                case 8:
+                    transactionHistory();
+                case 9:
                     System.out.println("Thank you for your patronage, enjoy the rest of your day.");
                     working = false;
                     break;
@@ -77,18 +94,18 @@ public class ATM {
         }
     }
 
-    public void overdraft() {
+    private void overdraft() {
         while(working) {
             int choice = promptUserForInt("Which account do you want to change your Overdraft Protection status of?\n" + "1.) Checking 2.) Savings 3.) Investment 4.) Back 5.) Exit.");
             switch (choice) {
                 case 1:
                     String overdraft1 = promptUserForString("What do you want to change it to? Please type Enabled, Automatic, or Disabled.");
                     if (overdraft1.toLowerCase().equals("enabled")) {
-                        checking.setOverdraftPrevention(OverdraftPrevention.ENABLED);
+                        user.getChecking().setOverdraftPrevention(OverdraftPrevention.ENABLED);
                     } else if (overdraft1.toLowerCase().equals("automatic")) {
-                        checking.setOverdraftPrevention(OverdraftPrevention.AUTOMATIC);
+                        user.getChecking().setOverdraftPrevention(OverdraftPrevention.AUTOMATIC);
                     } else if (overdraft1.toLowerCase().equals("disabled")) {
-                        checking.setOverdraftPrevention(OverdraftPrevention.DISABLED);
+                        user.getChecking().setOverdraftPrevention(OverdraftPrevention.DISABLED);
                     } else {
                         System.out.println("I'm sorry, but that is not a valid input.");
                     }
@@ -96,11 +113,11 @@ public class ATM {
                 case 2:
                     String overdraft2 = promptUserForString("What do you want to change it to? Please type Enabled, Automatic, or Disabled.");
                     if (overdraft2.toLowerCase().equals("enabled")) {
-                        savings.setOverdraftPrevention(OverdraftPrevention.ENABLED);
+                        user.getSavings().setOverdraftPrevention(OverdraftPrevention.ENABLED);
                     } else if (overdraft2.toLowerCase().equals("automatic")) {
-                        savings.setOverdraftPrevention(OverdraftPrevention.AUTOMATIC);
+                        user.getSavings().setOverdraftPrevention(OverdraftPrevention.AUTOMATIC);
                     } else if (overdraft2.toLowerCase().equals("disabled")) {
-                        savings.setOverdraftPrevention(OverdraftPrevention.DISABLED);
+                        user.getSavings().setOverdraftPrevention(OverdraftPrevention.DISABLED);
                     } else {
                         System.out.println("I'm sorry, but that is not a proper input.");
                     }
@@ -108,11 +125,11 @@ public class ATM {
                 case 3:
                     String overdraft3 = promptUserForString("What do you want to change it to? Please type Enabled, Automatic, or Disabled.");
                     if (overdraft3.toLowerCase().equals("enabled")) {
-                        investment.setOverdraftPrevention(OverdraftPrevention.ENABLED);
+                        user.getInvestment().setOverdraftPrevention(OverdraftPrevention.ENABLED);
                     } else if (overdraft3.toLowerCase().equals("automatic")) {
-                        investment.setOverdraftPrevention(OverdraftPrevention.AUTOMATIC);
+                        user.getInvestment().setOverdraftPrevention(OverdraftPrevention.AUTOMATIC);
                     } else if (overdraft3.toLowerCase().equals("disabled")) {
-                        investment.setOverdraftPrevention(OverdraftPrevention.DISABLED);
+                        user.getInvestment().setOverdraftPrevention(OverdraftPrevention.DISABLED);
                     } else {
                         System.out.println("We're sorry, that is not a valid input.");
                     }
@@ -130,26 +147,29 @@ public class ATM {
         }
     }
 
-    public void closeAccount() {
+    private void closeAccount() {
         while(working) {
             int choice = promptUserForInt("Which account do you want to Close?\n" + "1.) Checking 2.) Savings 3.) Investment 4.) Back 5.) Exit.");
             switch (choice) {
                 case 1:
                     boolean closable1 = checking.checkForClosable();
                     if(closable1) {
-                        checking.setAccountStatus(AccountStatus.CLOSED);
+                        user.getChecking().setAccountStatus(AccountStatus.CLOSED);
+                        return;
                     }
                     break;
                 case 2:
                     boolean closable2 = savings.checkForClosable();
                     if(closable2) {
-                        savings.setAccountStatus(AccountStatus.CLOSED);
+                        user.getSavings().setAccountStatus(AccountStatus.CLOSED);
+                        return;
                     }
                     break;
                 case 3:
                     boolean closable3 = investment.checkForClosable();
                     if(closable3) {
-                        investment.setAccountStatus(AccountStatus.CLOSED);
+                        user.getInvestment().setAccountStatus(AccountStatus.CLOSED);
+                        return;
                     }
                     break;
                 case 4:
@@ -165,20 +185,20 @@ public class ATM {
         }
     }
 
-    public void accountStatus() {
+    private void accountStatus() {
         while(working){
             int choice = promptUserForInt("Which account do you want to change the status of?\n" + "1.) Checking 2.) Savings 3.) Investment 4.) Back 5.) Exit.");
             switch (choice) {
                 case 1:
                     String status1 = promptUserForString("What do you want to change it to? Please type Open, Closed, Frozen, or OFAC.");
                     if (status1.toLowerCase().equals("open")) {
-                        checking.setAccountStatus(AccountStatus.OPEN);
+                        user.getChecking().setAccountStatus(AccountStatus.OPEN);
                     } else if (status1.toLowerCase().equals("closed")) {
-                        checking.setAccountStatus(AccountStatus.CLOSED);
+                        user.getChecking().setAccountStatus(AccountStatus.CLOSED);
                     } else if (status1.toLowerCase().equals("frozen")) {
-                        checking.setAccountStatus(AccountStatus.FROZEN);
+                        user.getChecking().setAccountStatus(AccountStatus.FROZEN);
                     } else if (status1.toLowerCase().equals("ofac")) {
-                        checking.setAccountStatus(AccountStatus.OFAC);
+                        user.getChecking().setAccountStatus(AccountStatus.OFAC);
                     } else {
                         System.out.println("I'm sorry, but that is not a valid input.");
                     }
@@ -186,13 +206,13 @@ public class ATM {
                 case 2:
                     String status2 = promptUserForString("What do you want to change it to? Please type Open, Closed, Frozen, or OFAC.");
                     if (status2.toLowerCase().equals("open")) {
-                        savings.setAccountStatus(AccountStatus.OPEN);
+                        user.getSavings().setAccountStatus(AccountStatus.OPEN);
                     } else if (status2.toLowerCase().equals("closed")) {
-                        savings.setAccountStatus(AccountStatus.CLOSED);
+                        user.getSavings().setAccountStatus(AccountStatus.CLOSED);
                     } else if (status2.toLowerCase().equals("frozen")) {
-                        savings.setAccountStatus(AccountStatus.FROZEN);
+                        user.getSavings().setAccountStatus(AccountStatus.FROZEN);
                     } else if (status2.toLowerCase().equals("ofac")) {
-                        savings.setAccountStatus(AccountStatus.OFAC);
+                        user.getSavings().setAccountStatus(AccountStatus.OFAC);
                     } else {
                         System.out.println("I'm sorry, but that is not a proper input.");
                     }
@@ -200,13 +220,13 @@ public class ATM {
                 case 3:
                     String status3 = promptUserForString("What do you want to change it to? Please type Open, Closed, Frozen, or OFAC.");
                     if (status3.toLowerCase().equals("open")) {
-                        investment.setAccountStatus(AccountStatus.OPEN);
+                        user.getInvestment().setAccountStatus(AccountStatus.OPEN);
                     } else if (status3.toLowerCase().equals("closed")) {
-                        investment.setAccountStatus(AccountStatus.CLOSED);
+                        user.getInvestment().setAccountStatus(AccountStatus.CLOSED);
                     } else if (status3.toLowerCase().equals("frozen")) {
-                        investment.setAccountStatus(AccountStatus.FROZEN);
+                        user.getInvestment().setAccountStatus(AccountStatus.FROZEN);
                     } else if (status3.toLowerCase().equals("ofac")) {
-                        investment.setAccountStatus(AccountStatus.OFAC);
+                        user.getInvestment().setAccountStatus(AccountStatus.OFAC);
                     } else {
                         System.out.println("We're sorry, that is not a valid input.");
                     }
@@ -224,48 +244,48 @@ public class ATM {
         }
     }
 
-
-    public void deposit() {
+    private void balance() {
         while(working) {
-            int choice = promptUserForInt("What account would you like deposit into?\n" + "1.) Checking\n" + "2.) Savings\n" + "3.) Investments\n" + "4.) Back\n" + "5.) Exit");
-            double depositAmount = promptUserForDouble("How much would you like to deposit?");
+            int choice = promptUserForInt("What account would you like check?\n" + "1.) Checking\n" + "2.) Savings\n" + "3.) Investments\n" + "4.) Back\n" + "5.) Exit");
             switch (choice) {
                 case 1:
-                    checking.credit(depositAmount);
+                    user.getChecking().printBalance();
                     break;
                 case 2:
-                    savings.credit(depositAmount);
+                    user.getSavings().printBalance();
                     break;
                 case 3:
-                    investment.credit(depositAmount);
+                    user.getInvestment().printBalance();
                     break;
                 case 4:
                     businessEngine();
                     break;
                 case 5:
-                    System.out.println("Thank you for your patronage, enjoy the rest of your day.");
                     working = false;
                     break;
                 default:
-                    System.out.println("Sorry, that command is not in my operation systems. Please, try again.");
+                    System.out.println("Sorry, that is not a valid input.");
                     break;
             }
         }
     }
 
-    public void withdrawal() {
-        while (working) {
+    private void withdrawal() {
+        while(working) {
             int choice = promptUserForInt("What account would you like withdrawal from?\n" + "1.) Checking\n" + "2.) Savings\n" + "3.) Investments\n" + "4.) Back\n" + "5.) Exit");
             double withdrawalAmount = promptUserForDouble("How much would you like to withdrawal?");
             switch (choice) {
                 case 1:
-                    checking.debitOverdraftPreventionTest(withdrawalAmount);
+                    user.getChecking().debitOverdraftPreventionTest(withdrawalAmount);
+                    transaction("Checking", withdrawalAmount);
                     break;
                 case 2:
-                    savings.debitOverdraftPreventionTest(withdrawalAmount);
+                    user.getSavings().debitOverdraftPreventionTest(withdrawalAmount);
+                    transaction("Savings", withdrawalAmount);
                     break;
                 case 3:
-                    investment.debitOverdraftPreventionTest(withdrawalAmount);
+                    user.getInvestment().debitOverdraftPreventionTest(withdrawalAmount);
+                    transaction("Investment", withdrawalAmount);
                     break;
                 case 4:
                     businessEngine();
@@ -281,9 +301,100 @@ public class ATM {
         }
     }
 
-    public void transfer() {
-        while(working) {
+    private void deposit() {
+        while (working) {
+            int choice = promptUserForInt("What account would you like deposit into?\n" + "1.) Checking\n" + "2.) Savings\n" + "3.) Investments\n" + "4.) Back\n" + "5.) Exit");
+            double depositAmount = promptUserForDouble("How much would you like to deposit?");
+            switch (choice) {
+                case 1:
+                    user.getChecking().credit(depositAmount);
+                    transaction("Checking", depositAmount);
+                    break;
+                case 2:
+                    user.getSavings().credit(depositAmount);
+                    transaction("Savings", depositAmount);
+                    break;
+                case 3:
+                    user.getInvestment().credit(depositAmount);
+                    transaction("Investment", depositAmount);
+                    break;
+                case 4:
+                    businessEngine();
+                    break;
+                case 5:
+                    System.out.println("Thank you for your patronage, enjoy the rest of your day.");
+                    working = false;
+                    break;
+                default:
+                    System.out.println("Sorry, that command is not in my operation systems. Please, try again.");
+                    break;
+            }
+        }
+    }
 
+    private void transfer() {
+        while(working) {
+            int choice1 = promptUserForInt("What account would you like to transfer from?\n" + "1.) Checking\n" + "2.) Savings\n" + "3.) Investments\n" + "4.) Back\n" + "5.) Exit");
+            int choice2 = promptUserForInt("What account would you like to transfer to?\n" + "1.) Checking\n" + "2.) Savings\n" + "3.) Investments");
+            double transferAmount = promptUserForDouble("How much would you like to transfer?");
+            switch (choice1) {
+                case 1:
+                    if (choice2 == 2) {
+                        user.getChecking().debitOverdraftPreventionTest(transferAmount);
+                        user.getSavings().credit(transferAmount);
+                        transaction("Checking", "Savings", transferAmount);
+                    } else if (choice2 == 3) {
+                        user.getChecking().debitOverdraftPreventionTest(transferAmount);
+                        user.getInvestment().credit(transferAmount);
+                        transaction("Checking", "Investment", transferAmount);
+                    } else if (choice2 == 1) {
+                        System.out.println("Sorry, you can't transfer money into the same account you withdrawal it from.");
+                    }else {
+                        System.out.println("We're sorry, that is not a valid input.");
+                    }
+                    break;
+                case 2:
+                    if (choice2 == 3) {
+                        user.getSavings().debitOverdraftPreventionTest(transferAmount);
+                        user.getInvestment().credit(transferAmount);
+                        transaction("Savings", "Investment", transferAmount);
+                    } else if (choice2 == 1) {
+                        user.getSavings().debitOverdraftPreventionTest(transferAmount);
+                        user.getChecking().credit(transferAmount);
+                        transaction("Savings", "Checking", transferAmount);
+                    } else if (choice2 == 2) {
+                        System.out.println("Sorry, you can't transfer money into the same account you withdrawal it from.");
+                    }else {
+                        System.out.println("We're sorry, that is not a valid input.");
+                    }
+                    break;
+                case 3:
+                    if (choice2 == 1) {
+                        user.getInvestment().debitOverdraftPreventionTest(transferAmount);
+                        user.getChecking().credit(transferAmount);
+                        transaction("Investement", "Checking", transferAmount);
+                    } else if (choice2 == 2) {
+                        user.getInvestment().debitOverdraftPreventionTest(transferAmount);
+                        user.getSavings().credit(transferAmount);
+                        transaction("Investement", "Savings", transferAmount);
+                    } else if (choice2 == 3) {
+                        System.out.println("Sorry, you can't transfer money into the same account you withdrawal it from.");
+                    }else {
+                        System.out.println("We're sorry, that is not a valid input.");
+                    }
+                    break;
+            }
+        }
+    }
+
+    public void transactionHistory() throws NullPointerException {
+        try {
+            for(int i =0; i < userManager.transactionHistory.size(); i++) {
+                System.out.println(userManager.transactionHistory.get(i));
+            }
+        } catch (NullPointerException e) {
+            System.err.println("NullPointerException: " + e.getMessage());
+            System.out.println("Sorry, there are no transactions to report at this time.");
         }
     }
 }

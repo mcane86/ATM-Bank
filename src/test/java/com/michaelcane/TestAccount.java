@@ -7,8 +7,6 @@ import static org.junit.Assert.*;
 
 public class TestAccount {
 
-    double delta = 1e-15;
-
     Account account;
     @Before public void setupInitializer() {
         account = new Account();
@@ -16,7 +14,8 @@ public class TestAccount {
 
     @Test
     public void testBalance() {
-        account.setBalance(1500.55);
+        account.setBalance(1000.00);
+        account.credit(500.55);
         String expectedValue = "Your current balance is $1500.55.";
         String actualValue = account.printBalance();
         assertEquals("Output should be $1500", expectedValue, actualValue);
