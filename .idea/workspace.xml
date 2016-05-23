@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="78dee16a-304f-4150-8b6a-6ff50cbfba31" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/michaelcane/ATM.java" afterPath="$PROJECT_DIR$/src/main/java/com/michaelcane/ATM.java" />
-    </list>
+    <list default="true" id="78dee16a-304f-4150-8b6a-6ff50cbfba31" name="Default" comment="" />
     <ignored path="ATM-Bank.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path="$PROJECT_DIR$/out/" />
@@ -831,7 +828,7 @@
       <workItem from="1463681017558" duration="55635000" />
       <workItem from="1464002098193" duration="943000" />
       <workItem from="1464004500567" duration="10000" />
-      <workItem from="1464006617507" duration="763000" />
+      <workItem from="1464006617507" duration="881000" />
     </task>
     <servers />
   </component>
@@ -868,7 +865,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="57351000" />
+    <option name="totallyTimeSpent" value="57469000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-346" y="-1080" width="1920" height="1080" extended-state="6" />
